@@ -2,15 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from api_task import crud
-from api_task.database import async_session
+from api_task.database import get_session
 from api_task.models import TaskCreate, TaskRead, TaskUpdate
 
 router = APIRouter()
-
-
-async def get_session() -> AsyncSession:
-    async with async_session() as session:
-        yield session
 
 
 @router.post("/tasks/", response_model=TaskRead)
